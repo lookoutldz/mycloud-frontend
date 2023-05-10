@@ -1,5 +1,6 @@
 import axios from "axios"
 import {ElMessage} from "element-plus";
+import ResponseEntity from "@/models/ResponseEntity";
 
 const defaultError = () => ElMessage.error("发生了一些错误，请联系管理员！")
 const defaultFailure = (message) => ElMessage.warning(message)
@@ -11,12 +12,13 @@ function post(url, data, success, failure = defaultFailure, error = defaultError
         },
         withCredentials: true,
     }).then(({data}) => {
-        console.log(data)
         // console.log(axios.defaults.baseURL+url)
-        if (data.statusCode === 200) {
-            success(data)
+        // console.log(data)
+        let resp = new ResponseEntity(data)
+        if (resp.statusCode === 100000) {
+            success(resp)
         } else {
-            failure(data.resultMap.data)
+            failure(resp.statusCode + ' - ' + resp.resultMap.data)
         }
     }).catch(error)
 }
@@ -28,10 +30,11 @@ function get(url, success, failure = defaultFailure, error = defaultError) {
         },
         withCredentials: true
     }).then(({data}) => {
-        if (data.statusCode === 200) {
-            success(data)
+        let resp = new ResponseEntity(data)
+        if (resp.statusCode === 100000) {
+            success(resp)
         } else {
-            failure(data.resultMap.data)
+            failure(resp.statusCode + ' - ' + resp.resultMap.data)
         }
     }).catch(error)
 }
