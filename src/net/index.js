@@ -5,10 +5,11 @@ import ResponseEntity from "@/models/ResponseEntity";
 const defaultError = () => ElMessage.error("发生了一些错误，请联系管理员！")
 const defaultFailure = (message) => ElMessage.warning(message)
 
-function post(url, data, success, failure = defaultFailure, error = defaultError) {
+function post(url, data, content_type, success, failure = defaultFailure, error = defaultError) {
     axios.post(url, data, {
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            // 'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': content_type
         },
         withCredentials: true,
     }).then(({data}) => {
@@ -22,6 +23,15 @@ function post(url, data, success, failure = defaultFailure, error = defaultError
         }
     }).catch(error)
 }
+
+function post_form(url, data, success, failure = defaultFailure, error = defaultError) {
+    post(url, data, 'application/x-www-form-urlencoded', success, failure, error)
+}
+
+function post_json(url, data, success, failure = defaultFailure, error = defaultError) {
+    post(url, data, 'application/json', success, failure, error)
+}
+
 
 function get(url, success, failure = defaultFailure, error = defaultError) {
     axios.get(url, {
@@ -39,4 +49,4 @@ function get(url, success, failure = defaultFailure, error = defaultError) {
     }).catch(error)
 }
 
-export {get, post}
+export {get, post, post_json, post_form}

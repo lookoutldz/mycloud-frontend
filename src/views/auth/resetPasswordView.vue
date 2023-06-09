@@ -52,7 +52,7 @@
 
 <script setup>
 import {onUnmounted, reactive, ref, watchEffect} from "vue";
-import {post} from "@/net";
+import {post_json} from "@/net";
 import {ElMessage} from "element-plus";
 import router from "@/router";
 import {EditPen, Lock, Message} from "@element-plus/icons-vue";
@@ -104,12 +104,10 @@ const validcodeBtnDisable = () => {
 function handleButtonClick() {
   inDisabledTime.value = true;
 
-  post('/auth/validcode/resetPassword/' + resetPasswordForm.email,
+  post_json('/auth/validcode/resetPassword/' + resetPasswordForm.email,
       {},
       (data) => {
-        if (data.statusCode === 200) {
-          ElMessage.success('含验证码的邮件已发送，请注意查收')
-        }
+        ElMessage.success(data.resultMap.data)
       })
 
   const timer = setInterval(() => {
@@ -139,9 +137,10 @@ const resetPasswordFormRef = ref()
 const resetPassword = () => {
    resetPasswordFormRef.value.validate((isValid) => {
     if (isValid) {
-      post('/auth/resetPassword/' + resetPasswordForm.email, {
+      post_json('/auth/resetPassword/', {
         password: resetPasswordForm.password,
-        validcode: resetPasswordForm.validcode
+        validcode: resetPasswordForm.validcode,
+        email: resetPasswordForm.email
       }, (data) => {
         ElMessage.success(data.resultMap.data)
         router.push('/login')

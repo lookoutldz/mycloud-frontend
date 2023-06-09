@@ -49,7 +49,7 @@
 <script setup>
 import {onUnmounted, reactive, ref, watchEffect} from "vue";
 import {EditPen, Lock, Message, User} from "@element-plus/icons-vue";
-import {post} from "@/net";
+import {post_json} from "@/net";
 import {ElMessage} from "element-plus";
 import router from "@/router";
 
@@ -112,12 +112,10 @@ const validcodeBtnDisable = () => {
 function handleButtonClick() {
   inDisabledTime.value = true;
 
-  post('/auth/validcode/registration/' + registrationForm.email,
+  post_json('/auth/validcode/register/' + registrationForm.email,
       {},
       (data) => {
-        if (data.statusCode === 200) {
-          ElMessage.success('含验证码的邮件已发送，请注意查收')
-        }
+        ElMessage.success(data.resultMap.data)
   })
 
   const timer = setInterval(() => {
@@ -149,11 +147,11 @@ const registrationFormRef = ref()
 const registration = () => {
   registrationFormRef.value.validate((isValid) => {
     if (isValid) {
-      post('/auth/register', {
-        username: registrationForm.username,
-        password: registrationForm.password,
-        email: registrationForm.email,
-        validcode: registrationForm.validcode
+      post_json('/auth/register', {
+          username: registrationForm.username,
+          password: registrationForm.password,
+          email: registrationForm.email,
+          validcode: registrationForm.validcode
       }, (data) => {
         ElMessage.success(data.resultMap.data)
         router.push('/index')

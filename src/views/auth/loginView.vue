@@ -20,7 +20,7 @@
                 <el-checkbox v-model="loginForm.remember" label="记住我" size="large" />
               </el-col>
               <el-col :span="12" style="text-align: right;">
-                <el-link style="translate: 0 5px;" @click="router.push('/ resetPassword')">忘记密码？</el-link>
+                <el-link style="translate: 0 5px;" @click="router.push('/resetPassword')">忘记密码？</el-link>
               </el-col>
             </el-row>
           </el-form-item>
@@ -41,7 +41,7 @@
 <script setup>
 import {Lock, User} from "@element-plus/icons-vue";
 import {reactive, ref} from "vue";
-import {post} from "@/net";
+import {post_form} from "@/net";
 import {ElMessage} from "element-plus";
 import router from "@/router";
 
@@ -66,7 +66,7 @@ const loginFormRef = ref()
 const login = () => {
   loginFormRef.value.validate((isValid) => {
     if (isValid) {
-      post('/user/auth/login', {
+      post_form('/auth/login', {
         username: loginForm.username,
         password: loginForm.password,
         remember: loginForm.remember
