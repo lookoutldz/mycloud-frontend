@@ -5,7 +5,7 @@
         <div style="text-align: center; font-size: 30px; font-weight: bold; margin-bottom: 5vh">登录</div>
         <el-form :model="loginForm" :rules="loginRules" ref="loginFormRef" style="padding: 0 5vw;">
           <el-form-item style="margin-bottom: 3vh" prop="username">
-            <el-input type="text" v-model="loginForm.username" placeholder="用户名" size="large">
+            <el-input type="text" v-model="loginForm.username" placeholder="用户名或邮箱" size="large">
               <template #prefix><el-icon><User /></el-icon></template>
             </el-input>
           </el-form-item>
