@@ -9,16 +9,6 @@
             style="padding: 0 5vw;"
             @validate="onValidate"
             ref="resetPasswordFormRef">
-          <el-form-item style="margin-bottom: 3vh" prop="password">
-            <el-input type="password" v-model="resetPasswordForm.password" placeholder="输入新密码" size="large">
-              <template #prefix><el-icon><Lock /></el-icon></template>
-            </el-input>
-          </el-form-item>
-          <el-form-item style="margin-bottom: 3vh" prop="password_repeat">
-            <el-input type="password" v-model="resetPasswordForm.password_repeat" placeholder="确认新密码" size="large">
-              <template #prefix><el-icon><Lock /></el-icon></template>
-            </el-input>
-          </el-form-item>
           <el-form-item style="margin-bottom: 3vh" prop="email">
             <el-input type="email" v-model="resetPasswordForm.email" placeholder="注册用的邮箱地址" size="large">
               <template #prefix><el-icon><Message /></el-icon></template>
@@ -39,6 +29,16 @@
                            style="width: 100%">{{validcodeBtnText}}</el-button>
               </el-col>
             </el-row>
+          </el-form-item>
+          <el-form-item style="margin-bottom: 3vh" prop="password">
+            <el-input type="password" v-model="resetPasswordForm.password" placeholder="输入新密码" size="large">
+              <template #prefix><el-icon><Lock /></el-icon></template>
+            </el-input>
+          </el-form-item>
+          <el-form-item style="margin-bottom: 3vh" prop="password_repeat">
+            <el-input type="password" v-model="resetPasswordForm.password_repeat" placeholder="确认新密码" size="large">
+              <template #prefix><el-icon><Lock /></el-icon></template>
+            </el-input>
           </el-form-item>
           <el-form-item style="margin-bottom: 2vh">
             <el-button type="primary" plain size="large" style="width: 100%" @click="resetPassword">重置密码</el-button>
