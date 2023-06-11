@@ -1,9 +1,11 @@
 <template>
   <div>
-    welcome!
-  </div>
-  <div>
-    <el-button @click="logout()" type="danger" plain>登出</el-button>
+    <div>
+      welcome!
+    </div>
+    <div>
+      <el-button @click="logout()" type="danger" plain>登出</el-button>
+    </div>
   </div>
 </template>
 
@@ -16,7 +18,7 @@ import router from "@/router";
 const logout = () => {
   get('/auth/logout', ((data) => {
     ElMessage.success(data.statusMessage)
-    router.push('/login')
+    router.push('/')
   }))
 }
 

@@ -1,6 +1,5 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
 import App from './App.vue'
@@ -13,6 +12,5 @@ axios.defaults.baseURL='http://localhost:8081'
 
 app.use(createPinia())
 app.use(router)
-app.use(ElementPlus, { size: 'small', zIndex: 3000 })
 
 app.mount('#app')
