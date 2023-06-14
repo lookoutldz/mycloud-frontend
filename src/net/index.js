@@ -6,14 +6,13 @@ const defaultError = () => ElMessage.error("发生了一些错误，请联系管
 const defaultFailure = (message) => ElMessage.warning(message)
 
 function post(url, data, content_type, success, failure = defaultFailure, error = defaultError) {
+    // console.log(axios.defaults.baseURL+url)
     axios.post(url, data, {
         headers: {
-            // 'Content-Type': 'application/x-www-form-urlencoded'
             'Content-Type': content_type
         },
         withCredentials: true,
     }).then(({data}) => {
-        // console.log(axios.defaults.baseURL+url)
         // console.log(data)
         let resp = new ResponseEntity(data)
         if (resp.statusCode === 100000) {

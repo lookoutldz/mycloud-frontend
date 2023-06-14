@@ -8,7 +8,7 @@ import axios from "axios";
 
 const app = createApp(App)
 
-axios.defaults.baseURL='http://localhost:8081'
+axios.defaults.baseURL='/api'
 
 app.use(createPinia())
 app.use(router)
