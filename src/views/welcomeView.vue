@@ -4,7 +4,6 @@
       <div class="background" v-for="(bg, index) in backgrounds" :key="index" :style="{ zIndex: index, backgroundImage: `url(${bg})`, opacity: bgOpacity[index] }"></div>
     </div>
     <div>
-<!--      <login-view />-->
     </div>
   </div>
 </template>
@@ -12,7 +11,6 @@
 
 <script setup>
 import {onBeforeUnmount, onMounted, ref} from "vue";
-import LoginView from "@/views/auth/loginView.vue";
 
 const backgrounds = ref([
     '/image/bg01.jpg',
@@ -85,4 +83,3 @@ export default {
 }
 
 </style>
-
