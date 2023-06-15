@@ -5,13 +5,13 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'welcome',
-      component: () => import('../views/welcomeView.vue'),
-      redirect: 'login'
+      name: 'default',
+      redirect: 'index'
     },
     {
       path: '/index',
       name: 'index',
+      meta: { requireAuth: true },
       component: () => import('../views/indexView.vue')
     },
     {
@@ -20,14 +20,19 @@ const router = createRouter({
       component: () => import('../views/auth/loginView.vue')
     },
     {
-      path: '/signup',
-      name: 'signup',
+      path: '/register',
+      name: 'register',
       component: () => import('../views/auth/registerView.vue')
     },
     {
       path: '/resetPassword',
       name: 'resetPassword',
       component: () => import('../views/auth/resetPasswordView.vue')
+    },
+    {
+      path: '/welcome',
+      name: 'welcome',
+      component: () => import('../views/welcomeView.vue'),
     },
   ]
 })

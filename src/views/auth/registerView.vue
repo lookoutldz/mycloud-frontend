@@ -116,7 +116,7 @@ function handleButtonClick() {
       {},
       (data) => {
         ElMessage.success(data.resultMap.data)
-  })
+  });
 
   const timer = setInterval(() => {
     countdown.value--;
