@@ -78,7 +78,7 @@ const registrationRules = {
   ],
   password: [
     {required: true, message: '密码不能为空', trigger: 'blur'},
-    {min: 6, max: 20, message: '密码长度应在6-20之间', trigger: 'blur'},
+    {min: 6, max: 100, message: '密码长度应在6-100之间', trigger: 'blur'},
   ],
   password_repeat: [
     {validator: validatePasswordRepeat, trigger: 'blur'},
