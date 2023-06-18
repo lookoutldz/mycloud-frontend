@@ -8,6 +8,17 @@ MyCloud 的前端项目
 
 #### 后端部分：[mycloud](https://github.com/lookoutldz/mycloud)
 
+----
+目前路由
+* / 
+* /index 
+* /login 
+* /register 
+* /resetPassword 
+* /welcome
+
+----
+
 ## 指南
 
 ### Recommended IDE Setup
