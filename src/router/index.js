@@ -11,7 +11,7 @@ const router = createRouter({
     {
       path: '/index',
       name: 'index',
-      meta: { requireAuth: true },
+      meta: { requireAuth: false },
       component: () => import('../views/indexView.vue')
     },
     {
