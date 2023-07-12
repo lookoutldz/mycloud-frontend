@@ -41,7 +41,7 @@
 <script setup>
 import {Lock, User} from "@element-plus/icons-vue";
 import {reactive, ref} from "vue";
-import {post_json} from "@/net";
+import {post_form} from "@/net";
 import {ElMessage} from "element-plus";
 import router from "@/router";
 
@@ -65,7 +65,7 @@ const loginFormRef = ref()
 const login = () => {
   loginFormRef.value.validate((isValid) => {
     if (isValid) {
-      post_json('/auth/login', {
+      post_form('/auth/login', {
         username: loginForm.username,
         password: loginForm.password,
         remember: loginForm.remember
