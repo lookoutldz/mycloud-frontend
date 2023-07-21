@@ -1,7 +1,7 @@
 export default class ResponseEntity {
-    constructor({statusCode, statusMessage, resultMap}) {
+    constructor({statusCode, statusMessage, result}) {
         this.statusCode = statusCode
         this.statusMessage = statusMessage
-        this.resultMap = resultMap
+        this.result = result
     }
 }

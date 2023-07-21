@@ -1,8 +1,10 @@
 import axios from "axios"
 import {ElMessage} from "element-plus";
-import ResponseEntity from "@/models/ResponseEntity";
 
-const defaultError = () => ElMessage.error("发生了一些错误，请联系管理员！")
+const defaultError = (error) => {
+    console.log(error)
+    ElMessage.error("发生了一些错误，请联系站长！")
+}
 const defaultFailure = (message) => ElMessage.warning(message)
 
 function post(url, body, content_type, success, failure = defaultFailure, error = defaultError) {
@@ -13,22 +15,27 @@ function post(url, body, content_type, success, failure = defaultFailure, error 
         },
         withCredentials: true,
     }).then(response => {
-        let responseData = response.data
-        // console.log(responseData)
-        let responseEntity = new ResponseEntity(responseData)
-        if (responseEntity.statusCode === 100000) {
-            if (url === '/auth/login') {
-                let jwt = response.headers['Authorization']
-                if (jwt) {
-                    localStorage.setItem('jwt', jwt)
+        // 校验 HTTP 状态码
+        if (response.status === 200) {
+            if (response.data.statusCode === 200) {
+                success(response)
+            } else {
+                let message = response.data.statusCode + " - " + response.data.statusMessage
+                if (typeof response.data.result === "string") {
+                    message = message + " : " + response.data.result
                 }
+                // token 过期，移除本地 token
+                if (response.data.statusCode === 401) {
+                    localStorage.removeItem('jwt')
+                }
+                ElMessage.warning(message)
             }
-            success(responseEntity)
         } else {
-            failure(responseEntity.statusCode + ' - ' + responseEntity.resultMap.data)
+            failure("请求异常, HTTP: " + response.status)
         }
     }).catch(error)
 }
+
 
 function post_form(url, body, success, failure = defaultFailure, error = defaultError) {
     post(url, body, 'application/x-www-form-urlencoded', success, failure, error)
@@ -47,12 +54,11 @@ function get(url, success, failure = defaultFailure, error = defaultError) {
         },
         withCredentials: true
     }).then(response => {
-        let responseData = response.data
-        let responseEntity = new ResponseEntity(responseData)
-        if (responseEntity.statusCode === 100000) {
-            success(responseEntity)
+        // 校验 HTTP 状态码
+        if (response.status === 200) {
+            success(response)
         } else {
-            failure(responseEntity.statusCode + ' - ' + responseEntity.resultMap.data)
+            failure("请求异常, HTTP: " + response.status)
         }
     }).catch(error)
 }

@@ -1,8 +1,8 @@
 <template>
-  <div style="width: 100vw; height: 100vh; overflow: hidden">
+  <div>
     <el-row>
-      <el-col :span="8" :offset="8" style="margin-top: 10vh;">
-        <div style="text-align: center; font-size: 30px; font-weight: bold; margin-bottom: 5vh">注册账号</div>
+      <el-col :span="colSpan" :offset="colOffset" class="board">
+        <div class="title">注册账号</div>
         <el-form :model="registrationForm" :rules="registrationRules" style="padding: 0 5vw;" @validate="onValidate" ref="registrationFormRef">
           <el-form-item style="margin-bottom: 3vh" prop="username">
             <el-input type="text" v-model="registrationForm.username" placeholder="用户名" size="large">
@@ -39,7 +39,7 @@
           <el-form-item style="margin-bottom: 2vh">
             <el-button type="primary" plain size="large" style="width: 100%" @click="registration">注册</el-button>
           </el-form-item>
-          <el-link style="translate: 0 5px; color: gray; text-align: center; margin-top: 2vh" @click="router.push('/login')">已有账号？去登录</el-link>
+          <el-link style="translate: 0 5px; color: gray; text-align: center; margin-top: 2vh; margin-bottom: 5vh; color: white" @click="router.push('/login')">已有账号？去登录</el-link>
         </el-form>
       </el-col>
     </el-row>
@@ -47,7 +47,7 @@
 
 </template>
 <script setup>
-import {onUnmounted, reactive, ref, watchEffect} from "vue";
+import {computed, onUnmounted, reactive, ref, watchEffect} from "vue";
 import {EditPen, Lock, Message, User} from "@element-plus/icons-vue";
 import {post_json} from "@/net";
 import {ElMessage} from "element-plus";
@@ -162,6 +162,14 @@ const registration = () => {
   })
 }
 
+const colSpan = computed(() => {
+  return window.innerWidth <= 570 ? 24 : 16
+})
+
+const colOffset = computed(() => {
+  return window.innerWidth <= 570 ? 0 : 4;
+});
+
 </script>
 
 <script>
@@ -171,4 +179,35 @@ export default {
 </script>
 
 <style scoped>
+.title {
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin: 5vh
+}
+
+@media (max-width: 480px) {
+  .board {
+    margin-top: 6vh;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,50%);
+  }
+}
+
+@media (min-width: 481px) and (max-width: 1024px) {
+  .board {
+    margin-top: 10vh;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,50%);
+  }
+}
+
+@media (min-width: 1025px) {
+  .board {
+    margin-top: 6vh;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,50%);
+  }
+}
 </style>

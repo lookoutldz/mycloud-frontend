@@ -5,6 +5,7 @@ import 'element-plus/dist/index.css'
 import App from './App.vue'
 import router from './router'
 import axios from "axios";
+import store from "@/stores";
 
 axios.defaults.baseURL='/api'
 
@@ -21,10 +22,14 @@ router.beforeEach((to, from, next) => {
 })
 
 const isAuthenticated = () => {
-    return true
+    return localStorage.getItem('jwt')
 }
 
 const app = createApp(App)
 app.use(createPinia())
 app.use(router)
+// 在创建 Vue 实例之前，先触发 setIsMobile 这个 action 来设置 isMobile
+store.dispatch('setIsMobile').then()
+store.dispatch('setDp').then()
+app.use(store)
 app.mount('#app')

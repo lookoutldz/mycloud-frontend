@@ -5,34 +5,36 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'default',
-      redirect: 'index'
-    },
-    {
-      path: '/index',
       name: 'index',
       meta: { requireAuth: false },
-      component: () => import('../views/indexView.vue')
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import('../views/auth/loginView.vue')
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: () => import('../views/auth/registerView.vue')
-    },
-    {
-      path: '/resetPassword',
-      name: 'resetPassword',
-      component: () => import('../views/auth/resetPasswordView.vue')
+      component: () => import('../views/indexView.vue'),
+      children: [{
+        path: '/login',
+        name: 'login',
+        meta: { requireAuth: false },
+        component: () => import('../views/auth/loginView.vue')
+      }, {
+        path: '/register',
+        name: 'register',
+        meta: { requireAuth: false },
+        component: () => import('../views/auth/registerView.vue')
+      }, {
+        path: '/resetPassword',
+        name: 'resetPassword',
+        meta: { requireAuth: false },
+        component: () => import('../views/auth/resetPasswordView.vue')
+      }, {
+        path: '/profile',
+        name: 'profile',
+        meta: { requireAuth: true },
+        component: () => import('../views/personal/profileView.vue')
+      }]
     },
     {
       path: '/welcome',
       name: 'welcome',
-      component: () => import('../views/welcomeView.vue'),
+      meta: { requireAuth: false },
+      component: () => import('../views/egg/welcomeView.vue'),
     },
   ]
 })

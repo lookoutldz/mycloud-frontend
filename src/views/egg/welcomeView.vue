@@ -3,8 +3,6 @@
     <div class="background-container">
       <div class="background" v-for="(bg, index) in backgrounds" :key="index" :style="{ zIndex: index, backgroundImage: `url(${bg})`, opacity: bgOpacity[index] }"></div>
     </div>
-    <div>
-    </div>
   </div>
 </template>
 

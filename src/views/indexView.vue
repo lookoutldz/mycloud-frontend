@@ -1,99 +1,85 @@
 <template>
-  <div style="width: 100vw; height: 100vh; overflow: hidden">
-    <el-container style="height: 100%">
-      <!--   Header   -->
-      <el-header >
-        <el-row>
-          <el-col :span="24">
-            <el-menu
-                :default-active="activeIndex"
-                mode="horizontal"
-                style="border: none;"
-                :ellipsis="false"
-                @select="handleSelect"
-            >
-              <el-menu-item index="0">
-                MyCloud
-              </el-menu-item>
-              <div class="flex-grow"/>
-              <el-sub-menu index="1">
-                <template #title>
-                  <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"/>
-                </template>
-                <el-menu-item index="1-1">Profile</el-menu-item>
-                <el-menu-item index="1-2">Notification</el-menu-item>
-                <el-menu-item index="1-3"><span style="color: red;">Logout</span></el-menu-item>
-              </el-sub-menu>
-            </el-menu>
-          </el-col>
-        </el-row>
-      </el-header>
-      <!--   Main   -->
-      <el-main style="height: 100%">
-        <div style="height: 100%">
-          <el-carousel :interval="5000" type="card" style="height: 100%">
-            <el-carousel-item v-for="item in images" :key="item">
-              <img :src="item" class="img" alt="alt">
-            </el-carousel-item>
-          </el-carousel>
-        </div>
-      </el-main>
+  <div class="index">
+    <el-container>
+      <el-header><Header /></el-header>
+      <el-container>
+        <el-aside class="aside"><LeftAside /></el-aside>
+        <el-main>
+          <router-view v-slot="{Component}">
+            <transition name="el-fade-in-linear" mode="out-in">
+              <component :is="Component"/>
+            </transition>
+          </router-view>
+        </el-main>
+        <el-aside class="aside"><RightAside /></el-aside>
+      </el-container>
     </el-container>
   </div>
-
 </template>
 
-<script setup>
-
-import {get} from "@/net";
-import {ElMessage} from "element-plus";
-import router from "@/router";
-import { ref } from 'vue'
-
-const activeIndex = ref('1')
-const handleSelect = (key, keyPath) => {
-  if (key === '1-3') {
-    logout()
-  }
-}
-const images = ref([
-    "image/bg01.jpg",
-    "image/bg02.jpg",
-    "image/bg03.jpeg",
-])
-
-const logout = () => {
-  get('/auth/logout', ((data) => {
-    ElMessage.success(data.statusMessage)
-    router.push('/')
-  }))
-}
-
-</script>
-
 <script>
+import Header from "@/views/common/Header.vue";
+import LeftAside from "@/views/common/LeftAside.vue";
+import Main from "@/views/common/Main.vue"
+import RightAside from "@/views/common/RightAside.vue"
+import {mapState} from "vuex";
+
 export default {
-  name: "indexView"
+  name: "indexView",
+  components: {
+    Header,
+    LeftAside,
+    Main,
+    RightAside,
+  },
+  computed: {
+    ...mapState({
+      isMobile: (state) => state.isMobile
+    }),
+    aside() {
+      return this.isMobile ? 'aside-mobile' : ''
+    }
+  }
 }
 </script>
 
 <style scoped>
-.flex-grow {
-  flex-grow: 1;
+
+@media (max-width: 480px) {
+  .index {
+    width: 100vw;
+    height: 100vh;
+    background: url("/image/legends-of-zelda-links-awakening-4k-phone-wallpaper-2160x3840-54.jpg");
+    background-size: 100% 100%;
+  }
+  .aside {
+    display: none;
+  }
 }
 
-.el-carousel__item h3 {
-  color: #475669;
-  opacity: 0.75;
-  line-height: 200px;
-  margin: 0;
-  text-align: center;
+@media (min-width: 481px) and (max-width: 1024px) {
+  .index {
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    background: url("/image/legends-of-zelda-links-awakening-4k-phone-wallpaper-2160x3840-54.jpg");
+    background-size: 100% 100%;
+  }
+  .aside {
+    width: 10%;
+  }
 }
 
-.img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+@media (min-width: 1025px) {
+  .index {
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    background: url("/image/legends-of-zelda-links-awakening-4k-wallpaper-3840x2160-54.jpg");
+    background-size: 100% 100%;
+  }
+  .aside {
+    width: 20%;
+  }
 }
-
 </style>
