@@ -106,8 +106,8 @@ function handleButtonClick() {
 
   post_json('/auth/validcode/resetPassword/' + resetPasswordForm.email,
       {},
-      (data) => {
-        ElMessage.success(data.resultMap.data)
+      (response) => {
+        ElMessage.success(response.data.result)
       })
 
   const timer = setInterval(() => {
