@@ -45,7 +45,7 @@ export default {
     handleSelect(key, keyPath) {
       switch (key) {
         case '1-1': router.push('/profile'); break;
-        case '1-2': break;
+        case '1-2': ElMessage.info("😣施工中"); break;
         case '1-3': this.logout(); break;
         case '1-4': router.push('/login'); break;
         default: break;

@@ -152,8 +152,8 @@ const registration = () => {
           password: registrationForm.password,
           email: registrationForm.email,
           validcode: registrationForm.validcode
-      }, (data) => {
-        ElMessage.success(data.resultMap.data)
+      }, (response) => {
+        ElMessage.success(response.data.result)
         router.push('/index')
       })
     } else {

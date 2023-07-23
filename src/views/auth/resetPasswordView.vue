@@ -141,8 +141,8 @@ const resetPassword = () => {
         password: resetPasswordForm.password,
         validcode: resetPasswordForm.validcode,
         email: resetPasswordForm.email
-      }, (data) => {
-        ElMessage.success(data.resultMap.data)
+      }, (response) => {
+        ElMessage.success(response.data.result)
         router.push('/login')
       })
     } else {
