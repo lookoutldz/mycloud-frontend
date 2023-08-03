@@ -34,8 +34,14 @@ const router = createRouter({
       path: '/welcome',
       name: 'welcome',
       meta: { requireAuth: false },
-      component: () => import('../views/egg/welcomeView.vue'),
+      component: () => import('../views/egg/WelcomeView.vue'),
     },
+    {
+      path: '/map',
+      name: 'map',
+      meta: { requireAuth: false },
+      component: () => import('../views/devtools/MapGenerator.vue')
+    }
   ]
 })
 
