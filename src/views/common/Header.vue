@@ -17,8 +17,8 @@
             <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"/>
           </template>
           <el-menu-item v-if="hasLoggedIn" index="1-1">Profile</el-menu-item>
-          <el-menu-item v-if="hasLoggedIn" index="1-2">Function1</el-menu-item>
-          <el-menu-item v-if="hasLoggedIn" index="1-3">Function2</el-menu-item>
+          <el-menu-item index="1-2">Function1</el-menu-item>
+          <el-menu-item index="1-3">Function2</el-menu-item>
           <el-menu-item v-if="hasLoggedIn" index="1-4">Notification</el-menu-item>
           <el-menu-item v-if="hasLoggedIn" index="1-5"><span style="color: red;">Logout</span></el-menu-item>
           <el-menu-item v-if="!hasLoggedIn" index="1-6"><span style="color: blue;">Login</span></el-menu-item>
@@ -66,17 +66,16 @@ export default {
     callFunction(key) {
       if (key === '1-2') {
         get('/user/test/port', ((response) => {
-          ElMessage.info(response.data.result)
-          console.log(response)
+          ElMessage.success(response.data.result + ' ' + response.data.statusMessage)
         }))
       } else if (key === '1-3') {
         get('/user/test/port2', ((response) => {
-          ElMessage.info(response.data.result)
-          console.log(response)
+          ElMessage.success(response.data.result + ' ' + response.data.statusMessage)
         }))
       }
     }
   },
+  // 用于实时响应登录后的jwt变化
   computed: {
     ...mapState(['jwt']),
     hasLoggedIn() {

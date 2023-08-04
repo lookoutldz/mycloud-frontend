@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import store from "@/stores";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,5 +50,21 @@ const router = createRouter({
     }
   ]
 })
+
+// Navigation Guards
+router.beforeEach((to, from, next) => {
+  // 根据需要进行权限判断
+  if (to.meta.requireAuth && !isAuthenticated()) {
+    // 如果页面需要登录权限，并且用户未登录，则跳转到登录页面
+    next('/login')
+  } else {
+    // 允许访问页面
+    next()
+  }
+})
+
+const isAuthenticated = () => {
+  return !!store.state.jwt
+}
 
 export default router
