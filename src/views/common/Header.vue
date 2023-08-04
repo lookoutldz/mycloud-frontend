@@ -17,9 +17,11 @@
             <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"/>
           </template>
           <el-menu-item v-if="hasLoggedIn" index="1-1">Profile</el-menu-item>
-          <el-menu-item v-if="hasLoggedIn" index="1-2">Notification</el-menu-item>
-          <el-menu-item v-if="hasLoggedIn" index="1-3"><span style="color: red;">Logout</span></el-menu-item>
-          <el-menu-item v-if="!hasLoggedIn" index="1-4"><span style="color: blue;">Login</span></el-menu-item>
+          <el-menu-item v-if="hasLoggedIn" index="1-2">Function1</el-menu-item>
+          <el-menu-item v-if="hasLoggedIn" index="1-3">Function2</el-menu-item>
+          <el-menu-item v-if="hasLoggedIn" index="1-4">Notification</el-menu-item>
+          <el-menu-item v-if="hasLoggedIn" index="1-5"><span style="color: red;">Logout</span></el-menu-item>
+          <el-menu-item v-if="!hasLoggedIn" index="1-6"><span style="color: blue;">Login</span></el-menu-item>
         </el-sub-menu>
       </el-menu>
     </el-col>
@@ -28,7 +30,7 @@
 
 <script>
 import router from "@/router";
-import {post_form} from "@/net";
+import {get, post_form} from "@/net";
 import {ElMessage} from "element-plus";
 import {mapState} from "vuex";
 
@@ -45,9 +47,11 @@ export default {
     handleSelect(key, keyPath) {
       switch (key) {
         case '1-1': router.push('/profile'); break;
-        case '1-2': ElMessage.info("😣施工中"); break;
-        case '1-3': this.logout(); break;
-        case '1-4': router.push('/login'); break;
+        case '1-2': this.callFunction(key); break;
+        case '1-3': this.callFunction(key); break;
+        case '1-4': ElMessage.info("😣施工中"); break;
+        case '1-5': this.logout(); break;
+        case '1-6': router.push('/login'); break;
         default: break;
       }
     },
@@ -59,6 +63,19 @@ export default {
         router.push('/')
       }))
     },
+    callFunction(key) {
+      if (key === '1-2') {
+        get('/user/test/port', ((response) => {
+          ElMessage.info(response.data.result)
+          console.log(response)
+        }))
+      } else if (key === '1-3') {
+        get('/user/test/port2', ((response) => {
+          ElMessage.info(response.data.result)
+          console.log(response)
+        }))
+      }
+    }
   },
   computed: {
     ...mapState(['jwt']),

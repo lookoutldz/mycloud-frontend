@@ -28,6 +28,11 @@ const router = createRouter({
         name: 'profile',
         meta: { requireAuth: true },
         component: () => import('../views/personal/profileView.vue')
+      }, {
+        path: '/deprecated/game',
+        name: 'game',
+        meta: { requireAuth: true },
+        component: () => import('../views/game/GameFrame.vue')
       }]
     },
     {
