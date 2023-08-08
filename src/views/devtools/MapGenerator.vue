@@ -26,9 +26,7 @@ export default {
       selectionEnd: { x: 0, y: 0 },
       dynamicKey: '',
       dynamicValue: '',
-      areas: [{
-        ''
-      }]
+      areas: []
     };
   },
   methods: {
